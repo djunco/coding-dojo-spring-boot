@@ -1,109 +1,105 @@
-
 package com.assignment.spring.api;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "type",
-    "id",
-    "message",
-    "country",
-    "sunrise",
-    "sunset"
-})
+@JsonPropertyOrder({"type", "id", "message", "country", "sunrise", "sunset"})
 public class Sys {
 
-    @JsonProperty("type")
-    private Integer type;
-    @JsonProperty("id")
-    private Integer id;
-    @JsonProperty("message")
-    private Double message;
-    @JsonProperty("country")
-    private String country;
-    @JsonProperty("sunrise")
-    private Integer sunrise;
-    @JsonProperty("sunset")
-    private Integer sunset;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  @JsonProperty("type")
+  private Integer type;
 
-    @JsonProperty("type")
-    public Integer getType() {
-        return type;
-    }
+  @JsonProperty("id")
+  private Integer id;
 
-    @JsonProperty("type")
-    public void setType(Integer type) {
-        this.type = type;
-    }
+  @JsonProperty("message")
+  private Double message;
 
-    @JsonProperty("id")
-    public Integer getId() {
-        return id;
-    }
+  @JsonProperty("country")
+  private String country;
 
-    @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @JsonProperty("sunrise")
+  private Integer sunrise;
 
-    @JsonProperty("message")
-    public Double getMessage() {
-        return message;
-    }
+  @JsonProperty("sunset")
+  private Integer sunset;
 
-    @JsonProperty("message")
-    public void setMessage(Double message) {
-        this.message = message;
-    }
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<>();
 
-    @JsonProperty("country")
-    public String getCountry() {
-        return country;
-    }
+  @JsonProperty("type")
+  public Integer getType() {
+    return type;
+  }
 
-    @JsonProperty("country")
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  @JsonProperty("type")
+  public void setType(Integer type) {
+    this.type = type;
+  }
 
-    @JsonProperty("sunrise")
-    public Integer getSunrise() {
-        return sunrise;
-    }
+  @JsonProperty("id")
+  public Integer getId() {
+    return id;
+  }
 
-    @JsonProperty("sunrise")
-    public void setSunrise(Integer sunrise) {
-        this.sunrise = sunrise;
-    }
+  @JsonProperty("id")
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    @JsonProperty("sunset")
-    public Integer getSunset() {
-        return sunset;
-    }
+  @JsonProperty("message")
+  public Double getMessage() {
+    return message;
+  }
 
-    @JsonProperty("sunset")
-    public void setSunset(Integer sunset) {
-        this.sunset = sunset;
-    }
+  @JsonProperty("message")
+  public void setMessage(Double message) {
+    this.message = message;
+  }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
+  @JsonProperty("country")
+  public String getCountry() {
+    return country;
+  }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
+  @JsonProperty("country")
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
+  @JsonProperty("sunrise")
+  public Integer getSunrise() {
+    return sunrise;
+  }
+
+  @JsonProperty("sunrise")
+  public void setSunrise(Integer sunrise) {
+    this.sunrise = sunrise;
+  }
+
+  @JsonProperty("sunset")
+  public Integer getSunset() {
+    return sunset;
+  }
+
+  @JsonProperty("sunset")
+  public void setSunset(Integer sunset) {
+    this.sunset = sunset;
+  }
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public void setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+  }
 }

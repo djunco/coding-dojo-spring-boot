@@ -1,1 +1,19 @@
+server:
+  port: 8080
 
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${db_host:localhost:5432}/${db_name:weather}
+    username: ${db_username:postgres}
+    password: ${db_password:password}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: ${db_schema:weather}
+
+openweather:
+  base:
+    url: http://api.openweathermap.org/data/2.5/weather
+  apikey: tbd
