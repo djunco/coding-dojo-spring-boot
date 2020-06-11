@@ -1,6 +1,6 @@
 package com.assignment.spring.client;
 
-import com.assignment.spring.api.WeatherResponse;
+import com.assignment.spring.model.WeatherResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

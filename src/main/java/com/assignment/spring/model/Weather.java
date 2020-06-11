@@ -1,4 +1,4 @@
-package com.assignment.spring.api;
+package com.assignment.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -8,9 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"id", "main", "description", "icon"})
+@Getter
+@Setter
 public class Weather {
 
   @JsonProperty("id")
@@ -26,46 +30,6 @@ public class Weather {
   private String icon;
 
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<>();
-
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-
-  @JsonProperty("id")
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  @JsonProperty("main")
-  public String getMain() {
-    return main;
-  }
-
-  @JsonProperty("main")
-  public void setMain(String main) {
-    this.main = main;
-  }
-
-  @JsonProperty("description")
-  public String getDescription() {
-    return description;
-  }
-
-  @JsonProperty("description")
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  @JsonProperty("icon")
-  public String getIcon() {
-    return icon;
-  }
-
-  @JsonProperty("icon")
-  public void setIcon(String icon) {
-    this.icon = icon;
-  }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalProperties() {

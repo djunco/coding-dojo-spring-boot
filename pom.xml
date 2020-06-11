@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.2.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.assignment</groupId>
@@ -16,7 +16,21 @@
 
     <properties>
         <java.version>11</java.version>
+        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <liquibase-maven-plugin.version>3.9.0</liquibase-maven-plugin.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- JPA -->
@@ -35,21 +49,19 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>2.1.2.RELEASE</version>
         </dependency>
 
         <!-- Actuator - Health endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>2.1.14.RELEASE</version>
         </dependency>
 
         <!-- Lombok  -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Swagger2  -->
@@ -68,7 +80,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.13</version>
+            <version>42.2.5</version>
         </dependency>
 
         <!-- H2 in memory DB  -->
@@ -135,7 +147,8 @@
                             <excludes>
                                 <exclude>**/com/assignment/spring/Application*</exclude>
                                 <exclude>**/com/assignment/spring/constant/*</exclude>
-                                <exclude>**/com/assignment/spring/api/*</exclude>
+                                <exclude>**/com/assignment/spring/model/*</exclude>
+                                <exclude>**/com/assignment/spring/entity/*</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -149,7 +162,8 @@
                             <excludes>
                                 <exclude>**/com/assignment/spring/Application*</exclude>
                                 <exclude>**/com/assignment/spring/constant/*</exclude>
-                                <exclude>**/com/assignment/spring/api/*</exclude>
+                                <exclude>**/com/assignment/spring/model/*</exclude>
+                                <exclude>**/com/assignment/spring/entity/*</exclude>
                             </excludes>
                             <rules>
                                 <rule>
@@ -166,6 +180,32 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase-maven-plugin.version}</version>
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>jdbc:postgresql://${db_host}/${db_name}</url>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <username>${db_username}</username>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <password>${db_password}</password>
+                    <verbose>true</verbose>
+                    <dropFirst>false</dropFirst>
+                    <logging>debug</logging>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <changeLogFile>database/changelog-master.xml</changeLogFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.5</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -1,6 +1,5 @@
 package com.assignment.spring.controller;
 
-import com.assignment.spring.constant.ResourceMapping;
 import com.assignment.spring.entity.WeatherEntity;
 import com.assignment.spring.service.WeatherService;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherController {
 
   private WeatherService weatherService;
+  private static final String WEATHER = "/weather";
 
   @Autowired
   public WeatherController(WeatherService weatherService) {
@@ -35,7 +35,7 @@ public class WeatherController {
    * @param city the city name to query.
    * @return WeatherEntity containing weather data
    */
-  @GetMapping(ResourceMapping.WEATHER)
+  @GetMapping(WEATHER)
   @ApiOperation("Returns and stores weather information based on the city provided as a parameter")
   @ApiResponses(
       value = {

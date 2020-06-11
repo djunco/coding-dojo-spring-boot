@@ -1,11 +1,11 @@
 package com.assignment.spring.controller;
 
-import com.assignment.spring.api.Main;
-import com.assignment.spring.api.Sys;
-import com.assignment.spring.api.WeatherResponse;
+import com.assignment.spring.model.Main;
+import com.assignment.spring.model.Sys;
+import com.assignment.spring.model.WeatherResponse;
 import com.assignment.spring.client.OpenWeatherClient;
-import com.assignment.spring.constant.ResourceMapping;
 import feign.FeignException;
+import feign.Request;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
+import java.util.HashMap;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +34,7 @@ public class WeatherControllerTest {
   @Autowired private MockMvc mockMvc;
   @MockBean private OpenWeatherClient openWeatherClient;
   private static final String AMSTERDAM = "amsterdam";
+  private static final String WEATHER = "/weather";
 
   /**
    * Invokes /weather endpoint to search weather for a valid city an expects a HTTP 200 Ok response.
@@ -54,7 +55,7 @@ public class WeatherControllerTest {
     when(openWeatherClient.weather(AMSTERDAM, "tbd")).thenReturn(weatherResponse);
     mockMvc
         .perform(
-            MockMvcRequestBuilders.get(ResourceMapping.WEATHER)
+            MockMvcRequestBuilders.get(WEATHER)
                 .param("city", AMSTERDAM)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
@@ -70,10 +71,12 @@ public class WeatherControllerTest {
     when(openWeatherClient.weather(AMSTERDAM, "tbd"))
         .thenThrow(
             new FeignException.Unauthorized(
-                "status 401 reading OpenWeatherClient#weather(String,String)", null));
+                "status 401 reading OpenWeatherClient#weather(String,String)",
+                Request.create(Request.HttpMethod.GET, "", new HashMap<>(), null),
+                null));
     mockMvc
         .perform(
-            MockMvcRequestBuilders.get(ResourceMapping.WEATHER)
+            MockMvcRequestBuilders.get(WEATHER)
                 .param("city", AMSTERDAM)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isUnauthorized());
@@ -90,10 +93,12 @@ public class WeatherControllerTest {
     when(openWeatherClient.weather("aaa", "tbd"))
         .thenThrow(
             new FeignException.NotFound(
-                "status 404 reading OpenWeatherClient#weather(String,String)", null));
+                "status 404 reading OpenWeatherClient#weather(String,String)",
+                Request.create(Request.HttpMethod.GET, "", new HashMap<>(), null),
+                null));
     mockMvc
         .perform(
-            MockMvcRequestBuilders.get(ResourceMapping.WEATHER)
+            MockMvcRequestBuilders.get(WEATHER)
                 .param("city", "aaa")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());

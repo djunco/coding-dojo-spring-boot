@@ -1,4 +1,4 @@
-package com.assignment.spring.api;
+package com.assignment.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

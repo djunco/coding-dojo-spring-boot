@@ -1,4 +1,4 @@
-package com.assignment.spring.api;
+package com.assignment.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -8,25 +8,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"all"})
-public class Clouds {
+@JsonPropertyOrder({"lon", "lat"})
+@Getter
+@Setter
+public class Coord {
 
-  @JsonProperty("all")
-  private Integer all;
+  @JsonProperty("lon")
+  private Double lon;
+
+  @JsonProperty("lat")
+  private Double lat;
 
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<>();
-
-  @JsonProperty("all")
-  public Integer getAll() {
-    return all;
-  }
-
-  @JsonProperty("all")
-  public void setAll(Integer all) {
-    this.all = all;
-  }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalProperties() {

@@ -1,6 +1,6 @@
 package com.assignment.spring.handler;
 
-import com.assignment.spring.api.ApiError;
+import com.assignment.spring.model.ApiError;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
